@@ -1,10 +1,14 @@
-import { IsString, IsNumber, Min } from 'class-validator';
+import { IsString, IsNumber, IsPositive } from 'class-validator';
 
-export class CreateProductDto {
+export class CreateProductoDto {
   @IsString()
-  name: string;
+  nombre: string;
 
   @IsNumber()
-  @Min(0)
-  price: number;
+  @IsPositive()
+  precio: number;
+
+  @IsNumber()
+  @IsPositive()
+  stock: number;
 }

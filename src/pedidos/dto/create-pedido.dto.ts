@@ -1,19 +1,24 @@
-import { IsArray, IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsArray, IsDateString, IsInt, Min, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+export class ProductoCantidadDto {
+  @IsInt()
+  @Min(1)
+  productoId: number;
+
+  @IsInt()
+  @Min(1)
+  cantidad: number;
+}
 
 export class CreatePedidoDto {
-  @IsString()
-  customer_name: string;
-
-  @IsString()
-  customer_email: string;
-
-  @IsNumber()
-  total_amount: number;
-
-  @IsString()
-  status: string;
+  @IsDateString()
+  fecha: Date;
 
   @IsArray()
-  @IsOptional()
-  products: { product_id: number; quantity: number }[]; // Asegúrate que esto sea un array
+  @ValidateNested({ each: true })
+  @Type(() => ProductoCantidadDto)
+  productos: ProductoCantidadDto[];
 }
+
+

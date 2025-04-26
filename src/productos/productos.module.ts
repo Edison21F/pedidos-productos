@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
+import { ProductosService } from './productos.service';
+import { ProductosController } from './productos.controller';
+import { Producto } from './entities/producto.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsService } from './productos.service';
-import { ProductsController } from './productos.controller';
-import { Product } from './entities/producto.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product])],
-  controllers: [ProductsController],
-  providers: [ProductsService],
-  exports: [ProductsService], // Exportarlo para que PedidosService pueda usarlo
+  imports: [TypeOrmModule.forFeature([Producto])],
+  providers: [ProductosService],
+  exports: [ProductosService],  // Asegúrate de exportar el servicio
+  controllers: [ProductosController],
 })
-export class ProductsModule {}
+export class ProductosModule {}

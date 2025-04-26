@@ -1,22 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn } from 'typeorm';
-import { Product } from '../../productos/entities/producto.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { PedidoProducto } from './pedido-producto.entity';
 
 @Entity()
 export class Pedido {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
   @Column()
-  customerName: string;
+  fecha: Date;
 
-  @ManyToMany(() => Product, { cascade: true })
-  @JoinTable({
-    name: 'pedido_product',
-    joinColumn: { name: 'pedidoId' },
-    inverseJoinColumn: { name: 'productId' },
-  })
-  products: Product[];
+  @OneToMany(() => PedidoProducto, pedidoProducto => pedidoProducto.pedido, { cascade: true })
+  pedidoProductos: PedidoProducto[];
 }
+
+

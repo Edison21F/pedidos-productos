@@ -1,17 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
-import { Pedido } from '../../pedidos/entities/pedido.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { PedidoProducto } from '../../pedidos/entities/pedido-producto.entity';
 
 @Entity()
-export class Product {
+export class Producto {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
-  
-  @Column('decimal')
-  price: number;
+  nombre: string;
 
-  @ManyToMany(() => Pedido, pedido => pedido.products)
-  pedidos: Pedido[];
+  @Column('decimal')
+  precio: number;
+
+  @OneToMany(() => PedidoProducto, pedidoProducto => pedidoProducto.producto)
+  pedidoProductos: PedidoProducto[];
 }
+
+
